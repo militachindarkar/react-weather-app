@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Weather from "./components/Weather/Weather";
 import LocationSearch from "./components/Location/LocationSearch";
 import { NavigationBar } from "./components/NavigationBar";
+import { Headline } from "./components/Headline";
 import { Grid, Box, Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +23,7 @@ const App = () => {
   const [inputText, setInputText] = useState(defaultCity);
   const [weatherData, setWeatherData] = useState([]);
   const [isDay, setIsDay] = useState(true);
+  const [headline, setWeatherHeadline] = useState({});
   useEffect(() => {
     console.log("run", inputText);
     axios
@@ -45,6 +47,7 @@ const App = () => {
       .then((res) => {
         console.log(res.data);
         setWeatherData(res.data.DailyForecasts);
+        setWeatherHeadline(res.data.Headline);
       })
       .catch((error) => console.log(error));
   }, [city]);
@@ -62,9 +65,13 @@ const App = () => {
     setIsDay(e.target.checked);
   };
   return (
-    <div className={classes.weatherContainer}>
+    <div
+      className={`${classes.weatherContainer} ${
+        isDay ? classes.classDay : classes.classNight
+      }`}
+    >
       <NavigationBar isDay={isDay} handleToggleChange={handleToggleChange} />
-      <Container className={isDay ? classes.classDay : classes.classNight}>
+      <Container>
         <Box
           className={classes.marginAutoBox}
           xs={12}
@@ -79,7 +86,10 @@ const App = () => {
             inputChangeHandler={onInputTextChange}
           />
         </Box>
-        <Box className={classes.weatherContainer} my={8}>
+        <Box>
+          <Headline headline={headline} />
+        </Box>
+        <Box my={8}>
           <Grid container spacing={1}>
             <Grid item xs={1} sm={1}></Grid>
             {weatherData.map((item, index) => {

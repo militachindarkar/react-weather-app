@@ -34,11 +34,10 @@ const Weather = ({ weatherData, isDay }) => {
   const classes = useStyles();
   const iconNum = isDay ? weatherData.Day.Icon : weatherData.Night.Icon;
 
-  console.log(imgData[iconNum - 1]);
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography color="textSecondary" variant="body1" gutterBottom>
+        <Typography color="textSecondary" variant="button" gutterBottom>
           {`${daysList[new Date(weatherData.Date).getDay()]}`}
         </Typography>
         <Typography color="textPrimary" variant="h5" gutterBottom>
