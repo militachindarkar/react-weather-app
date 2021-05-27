@@ -81,7 +81,7 @@ const App = () => {
         </Box>
         <Box className={classes.weatherContainer} my={8}>
           <Grid container spacing={1}>
-            <Grid item xs={1}></Grid>
+            <Grid item xs={1} sm={1}></Grid>
             {weatherData.map((item, index) => {
               return (
                 <Grid key={index} item xs={12} sm={2}>
@@ -89,7 +89,7 @@ const App = () => {
                 </Grid>
               );
             })}
-            <Grid item xs={1}></Grid>
+            <Grid item xs={1} sm={1}></Grid>
           </Grid>
         </Box>
       </Container>
